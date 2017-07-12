@@ -71,6 +71,31 @@ return [
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Pdf::class,
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Svg::class,
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Video::class,
+        // Spatie\MediaLibrary\ImageGenerators\FileTypes\VideoElasticTranscoder::class,
+    ],
+    
+    /*
+	 * Setting for AWS Elastic Transcoder if used for video conversions
+	 * Example .env:
+	 *
+	 *  TRANSCODER_KEY=12345XXX
+	 *  TRANSCODER_SECRET=12345XXX
+	 *  TRANSCODER_REGION=us-east-1
+	 *  TRANSCODER_BUCKET=imaginary-bucket-for-videos
+	 *  TRANSCODER_PIPELINE_ID=1111122233334-56abc0	 
+	 *  TRANSCODER_PRESET_ID=1111122233334-56abc0	 
+	 *  TRANSCODER_API_VERSION=2012-09-25	 
+	 *
+     */
+    
+    'elastic_transcoder' => [
+	    'key'          => env('TRANSCODER_KEY'),
+	    'secret'       => env('TRANSCODER_SECRET'),
+	    'region'       => env('TRANSCODER_REGION'),
+	    'bucket'       => env('TRANSCODER_BUCKET'),
+	    'pipeline_id'  => env('TRANSCODER_PIPELINE_ID'),
+	    'preset_id'    => env('TRANSCODER_PRESET_ID'),
+	    'api_version'  => env('TRANSCODER_API_VERSION', "2012-09-25"),
     ],
 
     /*
