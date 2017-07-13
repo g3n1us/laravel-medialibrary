@@ -97,6 +97,12 @@ return [
 	    'preset_id'    => env('TRANSCODER_PRESET_ID'),
 	    'api_version'  => env('TRANSCODER_API_VERSION', "2012-09-25"),
     ],
+    
+    /**
+     * Determines if media files should be uploaded using streams as opposed to file_get_contents.
+     */
+     
+    'upload_using_streams' => true,
 
     /*
      * The path where to store temporary files while performing image conversions.

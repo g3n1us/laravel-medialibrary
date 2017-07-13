@@ -39,28 +39,30 @@ class DefaultFilesystem implements Filesystem
      */
     public function copyToMediaLibrary(string $pathToFile, Media $media, bool $conversions = false, string $targetFileName = '')
     {
-// dd($pathToFile);
         $destination = $this->getMediaDirectory($media, $conversions).
             ($targetFileName == '' ? pathinfo($pathToFile, PATHINFO_BASENAME) : $targetFileName);
 
-//         $file = fopen($pathToFile, 'r');
-        $file = file_get_contents($pathToFile);
+		$uploadUsingStreams = config('medialibrary.upload_using_streams', true);
+
+        $file = $uploadUsingStreams ? fopen($pathToFile, 'r') : file_get_contents($pathToFile);
 
         if ($media->getDiskDriverName() === 'local') {
             $this->filesystem
                 ->disk($media->disk)
                 ->put($destination, $file);
 
-//             fclose($file);
+			if($uploadUsingStreams)
+	            fclose($file);
 
             return;
         }
-// ddd($this->filesystem->disk($media->disk));
+
         $this->filesystem
             ->disk($media->disk)
             ->put($destination, $file, $this->getRemoteHeadersForFile($pathToFile));
 
-//         fclose($file);
+		if($uploadUsingStreams)
+            fclose($file);
         
     }
 
